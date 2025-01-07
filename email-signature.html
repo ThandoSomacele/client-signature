@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .copy-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #003366;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+      .copy-button:hover {
+        background-color: #004c99;
+        transform: translateY(-2px);
+      }
+      #signature-template {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="signature-preview">
+      <div style="font-family: Arial, sans-serif; max-width: 600px; color: #003366">
+        <p style="font-size: 22px; font-weight: 600; margin: 4px 0">Michelle Chavkin</p>
+        <p style="font-size: 14px; margin: 4px 0 12px">CEO & Founder of MCA INC.</p>
+        <p style="font-size: 12px; margin: 4px 0; font-weight: bold">
+          <a href="http://www.mcalaw.co.za" style="color: #003366; text-decoration: none">www.mcalaw.co.za</a>
+          <span style="margin: 0 5px">•</span>
+          <a href="tel:+27101404700" style="color: #003366; text-decoration: none">+27 10 140 4700</a>
+        </p>
+        <p style="color: #888; font-size: 13px; margin: 4px 0; letter-spacing: 0.5px">
+          Attorneys&nbsp;&nbsp;|&nbsp;&nbsp;Notaries&nbsp;&nbsp;|&nbsp;&nbsp;Conveyancers
+        </p>
+        <div style="margin-top: 15px">
+          <img src="/banner-animation.gif" alt="MCA Inc Banner" style="width: 600px; height: auto; display: block" />
+        </div>
+      </div>
+    </div>
+
+    <textarea id="signature-template">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; color: #003366;">
+            <p style="font-size: 18px; font-weight: 600; margin: 4px 0;">Michelle Chavkin</p>
+            <p style="font-size: 14px; margin: 4px 0 12px;">CEO & Founder of MCA INC.</p>
+            <p style="font-size: 14px; margin: 4px 0;">
+                <a href="http://www.mcalaw.co.za" style="color: #003366; text-decoration: none;">www.mcalaw.co.za</a>
+                <span style="margin: 0 5px;">•</span>
+                <a href="tel:+27101404700" style="color: #003366; text-decoration: none;">+27 10 140 4700</a>
+            </p>
+            <p style="color: #888; font-size: 13px; margin: 4px 0;">Attorneys&nbsp;&nbsp;|&nbsp;&nbsp;Notaries&nbsp;&nbsp;|&nbsp;&nbsp;Conveyancers</p>
+            <div style="margin-top: 15px;">
+                <img src="/banners/banner-1.jpg" alt="MCA Inc Banner" style="width: 600px; height: auto; display: block;">
+            </div>
+        </div>
+    </textarea>
+
+    <button class="copy-button" onclick="copySignature()">Copy Signature</button>
+
+    <script>
+      function copySignature() {
+        const template = document.getElementById('signature-template').value;
+        const tempTextArea = document.createElement('textarea');
+        tempTextArea.value = template;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+
+        const button = document.querySelector('.copy-button');
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.textContent = 'Copy Signature';
+        }, 2000);
+      }
+    </script>
+  </body>
+</html>
