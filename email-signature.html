@@ -22,9 +22,6 @@
         background-color: #004c99;
         transform: translateY(-2px);
       }
-      #signature-template {
-        display: none;
-      }
     </style>
   </head>
   <body>
@@ -32,7 +29,7 @@
       <div style="font-family: 'Manrope', Arial, sans-serif; max-width: 600px; color: #003f61">
         <p style="font-size: 22px; font-weight: 600; margin: 4px 0">Michelle Chavkin</p>
         <p style="font-size: 14px; margin: 4px 0 12px">CEO & Founder of MCA INC.</p>
-        <p style="font-size: 12px; margin: 4px 0; font-weight: bold">
+        <p style="font-size: 12px; margin: 4px 0; font-weight: 600">
           <a href="http://www.mcalaw.co.za" target="_blank" style="color: #003f61; text-decoration: none"
             >www.mcalaw.co.za</a
           >
@@ -50,36 +47,32 @@
       </div>
     </div>
 
-    <textarea id="signature-template">
-        <div style="font-family: 'Manrope', Arial, sans-serif; max-width: 600px; color: #003F61;">
-            <p style="font-size: 22px; font-weight: 600; margin: 4px 0;">Michelle Chavkin</p>
-            <p style="font-size: 14px; margin: 4px 0 12px;">CEO & Founder of MCA INC.</p>
-            <p style="font-size: 12px; margin: 4px 0; font-weight: bold;">
-                <a href="http://www.mcalaw.co.za" target="_blank" style="color: #003F61; text-decoration: none;">www.mcalaw.co.za</a>
-                <span style="margin: 0 5px;">•</span>
-                <a href="tel:27101404700" target="_blank" style="color: #003F61; text-decoration: none;">+27 10 140 4700</a>
-            </p>
-            <p style="color: #888; font-size: 13px; margin: 4px 0; letter-spacing: 0.5px;">Attorneys&nbsp;&nbsp;|&nbsp;&nbsp;Notaries&nbsp;&nbsp;|&nbsp;&nbsp;Conveyancers</p>
-            <div style="margin-top: 15px;">
-                <a href="http://www.mcalaw.co.za" target="_blank">
-                    <img src="/banner-animation.gif" alt="MCA Inc Banner" style="width: 600px; height: auto; display: block;">
-                </a>
-            </div>
-        </div>
-    </textarea>
-
     <button class="copy-button" onclick="copySignature()">Copy Signature</button>
 
     <script>
       function copySignature() {
-        const template = document.getElementById('signature-template').value;
-        const tempTextArea = document.createElement('textarea');
-        tempTextArea.value = template;
-        document.body.appendChild(tempTextArea);
-        tempTextArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempTextArea);
+        const signatureContent = document.querySelector('#signature-preview').innerHTML;
 
+        // Create a temporary container for selection
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = signatureContent;
+        document.body.appendChild(tempDiv);
+
+        // Create selection range
+        const range = document.createRange();
+        range.selectNode(tempDiv);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        // Copy the content
+        document.execCommand('copy');
+
+        // Clean up
+        document.body.removeChild(tempDiv);
+        selection.removeAllRanges();
+
+        // Update button text
         const button = document.querySelector('.copy-button');
         button.textContent = 'Copied!';
         setTimeout(() => {
